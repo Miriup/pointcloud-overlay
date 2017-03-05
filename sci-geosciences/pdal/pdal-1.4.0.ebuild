@@ -12,7 +12,7 @@ SRC_URI="http://download.osgeo.org/pdal/PDAL-${PV}-src.tar.gz"
 LICENSE=""
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="bash-completion hexbin jsoncpp laszip pcl postgres python sqlite"
+IUSE="bash-completion hexbin jsoncpp lasdump laszip pcl postgres python sqlite"
 
 CMAKE_MIN_VERSION="2.8.11"
 S="${WORKDIR}/PDAL-${PV}-src"
@@ -37,4 +37,10 @@ src_configure() {
 	)
 
 	cmake-utils_src_configure
+}
+
+src_install() {
+	cmake-utils_src_install
+
+	use lasdump && dobin ${BUILD_DIR}/bin/lasdump
 }
