@@ -3,11 +3,12 @@
 
 EAPI=5
 
-inherit cmake-utils
+inherit cmake-utils git-r3
 
 DESCRIPTION=""
 HOMEPAGE="https://www.pdal.io/index.html"
-SRC_URI="http://download.osgeo.org/pdal/PDAL-${PV}-src.tar.gz"
+#SRC_URI="http://download.osgeo.org/pdal/PDAL-${PV}-src.tar.gz"
+EGIT_REPO_URI="https://github.com/PDAL/PDAL.git"
 
 LICENSE=""
 SLOT="0"
@@ -15,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="bash-completion hexbin jsoncpp lasdump laszip pcl postgres python sqlite"
 
 CMAKE_MIN_VERSION="2.8.11"
-S="${WORKDIR}/PDAL-${PV}-src"
+#S="${WORKDIR}/PDAL-${PV}-src"
 
 DEPEND="sci-libs/gdal 
 sci-libs/geos
@@ -34,6 +35,7 @@ src_configure() {
 		$(cmake-utils_use_build pcl PLUGIN_PCL)
 		$(cmake-utils_use_build postgres PLUGIN_PGPOINTCLOUD)
 		$(cmake-utils_use_build python PLUGIN_PYTHON)
+		$(cmake-utils_use_with laszip LASZIP)
 	)
 
 	cmake-utils_src_configure
